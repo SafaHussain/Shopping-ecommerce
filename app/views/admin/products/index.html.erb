@@ -1,0 +1,31 @@
+<h1>Products</h1>
+<table>
+ 
+  <tbody>
+  <tr>
+     <div>
+       <div class="container">
+         <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4" style="text-align:center;">
+              <div class="card" >
+                  <img class="card-img-top" ><%= image_tag product.image.url, style:'width:35% ;height:40%' %>
+                <div class = "card-body" >
+                   <h3 class="card-title"><%= product.title %></h3>
+                   <h5 class="card-text"><%= product.description %></h5>
+                   <a herf="#" class="card-link" ><%= link_to 'Show', admin_product_path(product) %></a>
+                  <a herf="#" class="card-link" ><%= link_to 'Edit', edit_admin_product_path(product) %></a>
+                  <a herf="#" class="card-link" ><%= link_to 'Destroy',admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></a>
+                </div>
+              </div>
+        </div>
+    <div class ="row"></div>
+    <% end %>
+    </div>
+    </div>
+    </div>
+</tr>
+  </tbody>
+</table>
+<br>
+

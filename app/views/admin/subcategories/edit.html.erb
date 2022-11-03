@@ -1,0 +1,21 @@
+<h1>Editing Subcategory</h1>
+
+
+<%= form_for @subcategory, url: admin_category_subcategory_path, method: :put do|form| %>
+ <%= form.hidden_field :category_id, :value => @category.id %>
+   <p> <%= form.label :name %>
+          <%= form.text_field :name %>
+   </p>
+  <p>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+    </p>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<a href="/admin/categories/<%= params[:category_id]%>/subcategories/<%= @subcategory.id %>">Show </a>
+
+<%= link_to 'Back', admin_category_subcategories_path %>

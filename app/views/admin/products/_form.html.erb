@@ -1,0 +1,130 @@
+<% if can? :create, @product %>
+<div class="container" style="text-align: middle" %>
+<% if user_signed_in? %>
+    <%= form_for @product, url: admin_products_path, method: :post do |form| %>
+
+        <% if @product.errors.any? %>
+
+          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this article from being saved:</h2>
+          <ul>
+          <% @product.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+       <% end %>
+
+<%= form.hidden_field :user_id, :value => current_user.id %>
+
+
+      <p> <%= form.label :title %>
+      <%= form.text_field :title %>
+      </p>
+       <p> <%= form.label :description %>
+      <%= form.rich_text_area :description %>
+      </p>
+       <p> <%= form.label :price %>
+      <%= form.text_field :price %>
+      </p>
+       <p> <%= form.label :status %>
+       <%= form.select :status, ['available','available_on_order','unavailable'], autofocus: true, autocomplete: "status"%>
+      </p>
+
+ <% @categories=Category.all%>
+ <%= form.label :category_id %>
+  <%= form.select :category_id, options_for_select(@categories.collect { |category|
+    [category.name.titleize, @category = category ,category.id] }, 1), {}, { id: 'categories_select'} %> 
+  
+     <%= form.hidden_field :category_id, :value => @category.id %>
+    <%= form.label :subcategory_id %>
+      <%= form.select :subcategory_id,"", {}, :id => 'subcategories_select'%>
+
+
+  <%= form.hidden_field :user_id,  :value => current_user.id %>
+ <%
+=begin%>
+ <%= form.select :subcategory_id,"",{},:id=>'subcategories_select' %> 
+<%
+=end%>
+    
+<%
+=begin%>
+ 
+     <p> <label>Category</label>
+        <div id="select" onchange=func() value="">
+        <%= form.select :category_id, Category.all.pluck(:name, :id), {},
+       { id:"sel",class: 'select2-simple-dropdown form-control'}  %></div>
+       </p>
+   
+ <p onchange=fun()> 
+ <%= form.label :subcategory %>
+ <%= form.select :subcategory_id, Subcategory.pluck(:name, :id), {},
+       { id:"sub"}  %></div> 
+<%
+=end%>
+ <%
+=begin%>
+ <%= form.collection_select(:subcategory_id, Subcategory.all, :id, :name, prompt: true)%> 
+<%
+=end%>
+<p id="demo"></p>
+    <p>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+    </p>
+
+        <%= form.submit 'Submit' %>
+    <% end %>
+   
+<% else %>
+    <h1>Not accessible!</h1>
+<% end %>
+</div>
+<script>
+$('#categories_select').on('click', function() {
+    var categoryid = $(this).val();
+               
+    $.ajax({ 
+      url: `/admin/categories/${categoryid}/sub`,
+        type: "get",
+        success: function (data) {
+
+        }
+    });
+});
+
+
+
+</script>
+<!--
+ <script>
+var x; 
+function func(){
+
+x = document.getElementById('categories_select').value;
+alert(x);
+  $.ajax ({
+    debugger
+       type: 'GET',
+      dataType: 'script',
+      data: {
+        category_id: document.getElementById('categories_select').value;
+      }
+      });
+  
+};
+function fun(){
+  var y = document.getElementById('sub').value;
+alert('hello');
+
+};
+</script>
+
+<script>
+$ ->
+  $(document).on 'change', '#categories_select', (evt) ->
+
+</script> 
+-->
+<% else%>
+<h3>You are not authorized to access this page</h3>
+<% end %>

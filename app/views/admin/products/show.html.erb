@@ -1,0 +1,36 @@
+
+<div class="container-fluid" style="text-align: middle">
+    <h1 style="text-align: middle">Displaying the Category</h1>
+<table class="table table-striped" data: {turbo: false}>
+
+    <tr><td> Title:</td>
+    <td><%=  @product.title  %></td></tr>
+
+     
+      <tr><td> Description:</td>
+    <td><%=  @product.description  %></td></tr>
+    
+     <tr><td> Status:</td>
+    <td><%=  @product.status %></td></tr>
+
+    <tr><td> Price:</td>
+    <td><%=  @product.price %></td></tr>
+
+     <%
+=begin%>
+ <tr><td> Seller:</td>
+    <td><%=  current_user.name  %></td></tr> 
+<%
+=end%>
+
+    <tr><td> Images :</td>
+     <td> 
+     <%= image_tag @product.image.url, style:'width:20% ;height:40%' %></td></tr>
+      
+    <tr><td><div style="border:1px solid"></div>
+    </td></tr>
+</table>
+</div>
+
+<%= link_to 'Edit', edit_admin_product_path(@product) %> |
+<%= link_to 'Back', admin_products_path %>

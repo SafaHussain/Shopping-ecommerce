@@ -1,0 +1,32 @@
+<h1>Editing Product</h1>
+
+<div class="container" style="text-align: middle">
+<%= form_for @product, url: admin_product_path, method: :put do|form| %>
+   
+      <p> <%= form.label :title %>
+      <%= form.text_field :title %>
+      </p>
+       <p> <%= form.label :description %>
+      <%= form.text_field :description %>
+      </p>
+       <p> <%= form.label :price %>
+      <%= form.text_field :price %>
+      </p>
+       <p> <%= form.label :status %>
+       <%= form.select :status, ['available','available_on_order','unavailable'], autofocus: true, autocomplete: "status"%>
+      </p>
+      
+      <p> <%= form.label :subcategory %>
+       <%= form.collection_select(:subcategory_id, Subcategory.all, :id, :name, prompt: true) %>
+
+      </p>
+    <p>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+    </p>
+
+<%= form.submit 'Submit' %>
+<% end %>
+</div>
+<%= link_to 'Show', admin_product_path(@product) %> |
+<%= link_to 'Back', admin_products_path %>

@@ -1,0 +1,20 @@
+
+<%= form_for @subcategory, url: admin_subcategories_path, method: :post do|form| %>
+
+  <p> <%= form.label :name %>
+          <%= form.text_field :name %>
+  </p>
+   <p>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+   </p>
+ <p> <%= form.label :category_id %>
+   <% @categories= Category.all %>
+    <%= form.select :category_id, options_for_select(@categories.all.pluck(:name){ |category|
+    [category.name.titleize,category.id] }, 1), {}, { id: 'categories_select'} %> 
+    
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

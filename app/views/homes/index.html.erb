@@ -1,0 +1,36 @@
+<marquee><h4>Welcome to Ecommerce Fast food! </h4></marquee>
+<%@products=Product.all%>
+ <% @products.each do |product| %>
+    <div class="col-md-4" style="text-align:center;">
+        <div class="card" href="/admin/products" style="border: 1px ">
+        <a href="/admin/products/<%= product.id %>">
+              <img class="card-img-top" ><%= image_tag product.image.url, style:'width:30% ;height:30%' %>
+                </a>
+            <div class = "card-body" >
+                   <h3 class="card-title"><%= product.title %></h3>
+                   <% @subcategory= Subcategory.find(product.subcategory_id)%>
+                   <h5 class="card-title"><%= @subcategory.name %></h5>
+                     <p class="card-title">Rs.<%= product.price %></p>
+                </div>
+                <%
+=begin%>
+ <a herf="#" class="card-link" ><%= link_to 'Show', admin_product_path(product) %></a>
+                  <a herf="#" class="card-link" ><%= link_to 'Edit', edit_admin_product_path(product) %></a>
+                  <a herf="#" class="card-link" ><%= link_to 'Destroy',admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></a>
+                 
+<%
+=end%>
+            </div>
+        </div>
+    <div class ="row">
+    <% end %>
+
+<script>
+$(document).ready(function(){
+$(.card).click(function(){
+   window.open($(this).attr("href"));
+
+});
+
+});
+</script>

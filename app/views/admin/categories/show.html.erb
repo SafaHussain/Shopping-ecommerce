@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container-fluid" style="text-align: middle">
+    <h1 style="text-align: middle">Displaying the Category</h1>
+<table class="table table-striped" data: {turbo: false}>
+
+    <tr><td> Name:</td>
+    <td><%=  @category.name  %></td></tr>
+
+     <tr><td> Images :</td>
+     <td> 
+     <%= image_tag @category.image.url, style:'width:50% ;height:40%' %></td>
+    <% if can? :manage, Category%>
+    <td><%= link_to 'New Subcategory', new_admin_subcategory_path%></td>
+    <td><%= link_to 'Edit', edit_admin_category_path(@category) %> </td>
+    <td><%= link_to 'Destroy', admin_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+</table>
+</div>
+
+
+<h2> All Subcategories </h2>
+<div class="container" >
+<table class="table table-hover">
+   <tr><thead  class="table-dark"> 
+   <th> Name </th>
+    <th> Picture </th> </tr>
+        </thead>
+    <tr>
+      <% @subcategories.each do |subcategory| %>
+    
+      <td><%= subcategory.name %></td>
+      <% if subcategory.image_url %>
+
+       <td><%= image_tag subcategory.image.url, style:'width:35% ;height:40%' %></td>
+
+      <% end %>
+      <% if can? :manage, Category%>
+       <td><%= link_to 'New Product', new_admin_product_path %></td>
+      <td><a href="/admin/subcategories/<%= subcategory.id %>">Show </a></td>
+      <td><a href="/admin/subcategories/<%= subcategory.id %>/edit">Edit </a></td>
+      <td><%= link_to 'Destroy', admin_subcategory_path(subcategory.category_id,subcategory.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+     <% end %>
+   </tr>
+    <% end %>
+
+</table>
+</div>
+
+
+<%= link_to 'Back', admin_categories_path %>

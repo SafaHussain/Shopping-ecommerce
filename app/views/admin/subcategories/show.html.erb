@@ -1,0 +1,17 @@
+<div class="container-fluid" style="text-align: middle">
+    <h1 style="text-align: middle">Displaying the Subcategory</h1>
+<table class="table table-striped" data: {turbo: false}>
+
+    <tr><td> Name:</td>
+    <td><%=  @subcategory.name  %></td></tr>
+
+     <tr><td> Images :</td>
+
+ <% if @subcategory.image_url %>
+    <td><%=link_to image_tag(@subcategory.image.url()) %></td>
+<% end %>
+</tr>
+</table>
+<%= link_to 'Back', admin_category_subcategories_path %> |
+<a href="/admin/products/new" >New Product</a>
+</div>

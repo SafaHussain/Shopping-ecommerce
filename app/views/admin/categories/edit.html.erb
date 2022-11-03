@@ -1,0 +1,17 @@
+<h1>Editing Category</h1>
+
+<div class="container" style="text-align: middle">
+<%= form_for @category, url: admin_category_path, method: :put do|form| %>
+    <p> <%= form.label :name %>
+    <%= form.text_field :name %>
+    </p>
+    <p>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+    </p>
+   
+   <%= form.submit 'Submit' %>
+<% end %>
+</div>
+<%= link_to 'Show', admin_category_path(@category) %>
+<%= link_to 'Back', admin_categories_path %>
