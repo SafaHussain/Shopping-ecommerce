@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
  
   
+  resources :carts
   resources :cartitems
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: {
@@ -18,9 +19,7 @@ Rails.application.routes.draw do
       
     end
     resources :products do 
-      collection do
-      post :pop
-      end
+      
     end
 
   end

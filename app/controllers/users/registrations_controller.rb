@@ -11,7 +11,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+   if super
+    if @user.role=="customer"
+    @cart = Cart.create(user_id: "@user.id")
+    else
+      flash[:notice]="Not a customer"
+    end
+  end
+    
   end
 
   # GET /resource/edit

@@ -14,18 +14,17 @@
 
   <div class="actions">
 
-  <p> <%= form.label :quantity %>
-      <%= form.text_field :quantity %>
-      </p>
+  <%= form.label :quantity %>
+  <%= form.text_field :quantity %>
        <%= form.hidden_field :product_id, :value => @product.id %>
-      <div id="p1"> <%= button_to "Add to Cart", Cartitem %></div>
-
+       <%= form.hidden_field :cart_id, :value => @current_user.cart.id %>
+    <div>   <%= button_to "Add to Cart", Cartitem, { id: 'pop'} %> </div>
   </div>
 <% end %>
 
 
 <script>
-$('#p1').on('click', function() {
+$('#pop').on('click', function() {
               
     $.ajax({ 
       url: `/cartitems`,
@@ -33,5 +32,13 @@ $('#p1').on('click', function() {
        
     });
 });
+</script>
 
+<script>
+   function increment() {
+      document.getElementById('demoInput').stepUp();
+   }
+   function decrement() {
+      document.getElementById('demoInput').stepDown();
+   }
 </script>
