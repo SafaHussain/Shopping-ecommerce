@@ -1,11 +1,11 @@
 
-    <%= form_for @cartitem, url: cartitems_path, method: :post do |form| %>
-  <% if cartitem.errors.any? %>
+    <%= form_for @cartitem, url: cartitems_path, method: :post, remote: true do |form| %>
+  <% if @cartitem.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(cartitem.errors.count, "error") %> prohibited this cartitem from being saved:</h2>
 
       <ul>
-        <% cartitem.errors.full_messages.each do |message| %>
+        <% @cartitem.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -17,6 +17,21 @@
   <p> <%= form.label :quantity %>
       <%= form.text_field :quantity %>
       </p>
-    <%= form.submit %>
+       <%= form.hidden_field :product_id, :value => @product.id %>
+      <div id="p1"> <%= button_to "Add to Cart", Cartitem %></div>
+
   </div>
 <% end %>
+
+
+<script>
+$('#p1').on('click', function() {
+              
+    $.ajax({ 
+      url: `/cartitems`,
+        type: `post`,
+       
+    });
+});
+
+</script>

@@ -15,7 +15,6 @@
 
     <tr><td> Price:</td>
     <td><%=  @product.price %></td></tr>
-
      <%
 =begin%>
  <tr><td> Seller:</td>
@@ -31,6 +30,8 @@
     </td></tr>
 </table>
 </div>
-
+<div>   <%= render 'cartitems/form'%>  </div> 
 <%= link_to 'Edit', edit_admin_product_path(@product) %> |
 <%= link_to 'Back', admin_products_path %>
+
+

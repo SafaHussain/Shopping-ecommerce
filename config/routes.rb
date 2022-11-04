@@ -18,7 +18,9 @@ Rails.application.routes.draw do
       
     end
     resources :products do 
-      
+      collection do
+      post :pop
+      end
     end
 
   end

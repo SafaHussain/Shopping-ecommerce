@@ -24,15 +24,12 @@ class CartitemsController < ApplicationController
   def create
     @cartitem = Cartitem.new(cartitem_params)
 
-    respond_to do |format|
       if @cartitem.save
-        format.html { redirect_to cartitem_url(@cartitem), notice: "Cartitem was successfully created." }
-        format.json { render :show, status: :created, location: @cartitem }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cartitem.errors, status: :unprocessable_entity }
+        # format.html { redirect_to cartitem_url(@cartitem), notice: "Cartitem was successfully created." }
+        respond_to do |format|
+        format.js 
+        end
       end
-    end
   end
 
   # PATCH/PUT /cartitems/1 or /cartitems/1.json
@@ -56,6 +53,8 @@ class CartitemsController < ApplicationController
       format.html { redirect_to cartitems_url, notice: "Cartitem was successfully destroyed." }
       format.json { head :no_content }
     end
+    
+ 
   end
 
   private
@@ -66,6 +65,6 @@ class CartitemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cartitem_params
-      params.fetch(:cartitem, {})
+      params.require(:cartitem).permit(:quantity, :product_id)
     end
 end

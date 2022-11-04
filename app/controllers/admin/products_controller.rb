@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         format.html { redirect_to admin_products_path, notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
+        format.json 
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -26,6 +26,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.friendly.find(params[:id])
+    @cartitem=Cartitem.new
   end
 
   
@@ -57,8 +58,7 @@ class ProductsController < ApplicationController
     end
     end
 
-   
-
+  
   end
 
   private
