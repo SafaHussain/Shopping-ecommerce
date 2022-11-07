@@ -3,12 +3,15 @@ class CartsController < ApplicationController
 
   # GET /carts or /carts.json
   def index
-    @carts = Cart.all
-  end
+    @carts = current_user.cart
+    @cartitems=Cartitem.all
+    
+  end 
 
   # GET /carts/1 or /carts/1.json
   def show
-    @cartitems=Cartitem.all
+    @cart=Cart.find(params[:id])
+
   end
 
   # GET /carts/new

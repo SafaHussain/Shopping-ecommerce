@@ -12,7 +12,6 @@ class ProductsController < ApplicationController
   
   def create
     @product = Product.new(product_params)
-    
     respond_to do |format|
       if @product.save
         format.html { redirect_to admin_products_path, notice: "Product was successfully created." }
@@ -27,6 +26,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.friendly.find(params[:id])
     @cartitem=Cartitem.new
+    @cart=current_user.cart
   end
 
   
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :description, :status, :price, :image, :subcategory_id, :user_id,:category_id)
+      params.require(:product).permit(:title, :description, :status, :price, :image, :subcategory_id, :user_id, :category_id)
 
     end
 end

@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
    if super
     if @user.role=="customer"
-    @cart = Cart.create(user_id: "@user.id")
+    @cart = Cart.create(user_id: @user.id)
     else
       flash[:notice]="Not a customer"
     end
