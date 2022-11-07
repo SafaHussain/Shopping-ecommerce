@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<div class="container" >
+<table class="table table-hover">
+   <thead  class="table-dark"> 
+
+    <tr>
+      <th >Product</th>
+       <th >Quantity</th>
+        <th >Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cartitems.each do |cart| %>
+      <tr>
+    <% p=cart.product_id %>
+    <% product=Product.find(p) %>
+   <td> <%= product.title%></td>
+    <td>  <%= cart.quantity%> </td>
+   <td> <%= product.price%></td>
+
+        <td><%= link_to 'Show', cart %></td>
+        <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
+        <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+

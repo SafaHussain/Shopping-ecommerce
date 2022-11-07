@@ -6,6 +6,6 @@ class Product < ApplicationRecord
     mount_uploader :image, ImageUploader
 
     has_rich_text :description
+   has_many :cartitems
  
-
 end

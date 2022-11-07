@@ -18,7 +18,6 @@ class Ability
         can :manage, Subcategory
       elsif user.customer?
         can :read, :all
-        can :manage, Order
       end
     end
 

@@ -3,7 +3,10 @@ class CartitemsController < ApplicationController
 
   # GET /cartitems or /cartitems.json
   def index
-    @cartitems = Cartitem.all
+    @c = current_user.cart
+    
+    @cartitems=@c.cartitems
+    
   end
 
   # GET /cartitems/1 or /cartitems/1.json
@@ -25,10 +28,8 @@ class CartitemsController < ApplicationController
     @cartitem = Cartitem.new(cartitem_params)
 
       if @cartitem.save
-        # format.html { redirect_to cartitem_url(@cartitem), notice: "Cartitem was successfully created." }
-        respond_to do |format|
-        format.js 
-        end
+        redirect_to cartitem_path(@cartitem)
+        
       end
   end
 
@@ -65,6 +66,6 @@ class CartitemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cartitem_params
-      params.require(:cartitem).permit(:quantity, :product_id)
+      params.require(:cartitem).permit(:quantity, :product_id, :cart_id)
     end
 end
