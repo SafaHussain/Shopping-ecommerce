@@ -3,8 +3,8 @@ class CartsController < ApplicationController
 
   # GET /carts or /carts.json
   def index
-    @carts = current_user.cart
-    @cartitems=Cartitem.all
+    @cart = current_user.cart
+    @cartitems=cart.cartitems
     
   end 
 

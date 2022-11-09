@@ -26,9 +26,12 @@ class ProductsController < ApplicationController
   def show
     @product = Product.friendly.find(params[:id])
     @cartitem=Cartitem.new
-    @cart=current_user.cart
+    if user_signed_in?
+      @cart=current_user.cart
+    else
+   flash[:notice]="YOu must Sign in."
+    end
   end
-
   
   def edit
     @product = Product.friendly.find(params[:id])

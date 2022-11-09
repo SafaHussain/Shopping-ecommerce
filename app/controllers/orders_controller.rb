@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    @order= current_user.order
   end
 
   # GET /orders/1 or /orders/1.json
@@ -21,11 +21,16 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
+  
     @order = Order.new(order_params)
     
     respond_to do |format|
       if @order.save
-        @cartitems=Cartitem.destroy_all
+        @c=current_user.cart
+        @cartitems=@c.cartitems
+        @orderitem=Orderitem.new
+debugger
+        @cartitems.destroy_all
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
@@ -66,6 +71,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.fetch(:order, {})
+      params.require(:order).permit(:user_id, :name, :address, :ph_no, :city, :email)
     end
 end

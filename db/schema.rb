@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_07_104329) do
+ActiveRecord::Schema.define(version: 2022_11_09_073959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2022_11_07_104329) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "product_id", null: false
     t.bigint "cart_id", null: false
+    t.integer "subtotal"
     t.index ["cart_id"], name: "index_cartitems_on_cart_id"
     t.index ["product_id"], name: "index_cartitems_on_product_id"
   end
@@ -88,6 +89,12 @@ ActiveRecord::Schema.define(version: 2022_11_07_104329) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.string "name"
+    t.string "address"
+    t.string "ph_no"
+    t.string "email"
+    t.string "city"
+    t.float "total"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

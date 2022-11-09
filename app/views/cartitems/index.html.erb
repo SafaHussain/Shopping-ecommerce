@@ -1,4 +1,5 @@
-<h1>Cartitems</h1>
+  <% if user_signed_in? %>
+  <h1>Cartitems</h1>
 <div class="container" >
 <table class="table table-hover">
    <thead  class="table-dark"> 
@@ -7,6 +8,7 @@
       <th class="col-md-1">Product</th>
       <th class="col-md-1">Price</th>
       <th class="col-md-3">Image</th>
+      <th class="col-md-1"> Sub Total</th>
       <th class="col-md-1">Show</th>
       <th class="col-md-1">Edit</th>
       <th class="col-md-1">Delete</th>
@@ -22,17 +24,27 @@
       <% @product=Product.find(p)%>
     
     <td><%= @product.title%></td>
-    <td><%= @product.price%></td>
-     <td> 
-     <%= image_tag @product.image.url, style:'width:20% ;height:40%' %></td>
+    <td id="price" value=""><%= @product.price%></td>
+     <td><%= image_tag @product.image.url, style:'width:20% ;height:40%' %></td>
+    <td>
+    <% c=cartitem.total(@product,cartitem.quantity)%>
+    <%=cartitem.subtotal=c%></td>
+
+
+
         <td colspan="3"><%= link_to 'Show', cartitem %></td>
         <td colspan="3"><%= link_to 'Edit', edit_cartitem_path(cartitem) %></td>
         <td colspan="3"><%= link_to 'Destroy', cartitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+       
     <% end %>
+    
   </tbody>
 </table>
 </div>
 
-<a href="/orderitems/new">Checkout</a>
+<a href="/orders/new">Checkout</a>
 <br>
+<% else %>
+<h1> You must sign in</h1>
+<%end%>

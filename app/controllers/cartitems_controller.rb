@@ -3,10 +3,10 @@ class CartitemsController < ApplicationController
 
   # GET /cartitems or /cartitems.json
   def index
+    if user_signed_in?
     @c = current_user.cart
-    
     @cartitems=@c.cartitems
-    
+    end
   end
 
   # GET /cartitems/1 or /cartitems/1.json

@@ -17,7 +17,9 @@
   <%= form.label :quantity %>
   <%= form.text_field :quantity %>
        <%= form.hidden_field :product_id, :value => @product.id %>
-       <%= form.hidden_field :cart_id, :value =>@cart.id %>
+      <% if user_signed_in? %>
+         <%= form.hidden_field :cart_id, :value =>@cart.id %>
+         <%end %>
        <div class="btn btn-light" id="cartitem">
     <%= form.submit "Add To Cart" %>
     </div>

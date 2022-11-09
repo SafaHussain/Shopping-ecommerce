@@ -3,11 +3,13 @@ class OrderitemsController < ApplicationController
 
   # GET /orderitems or /orderitems.json
   def index
-    @orderitems = Orderitem.all
+    @c = current_user.cart
+     @orderitems= @c.cartitems
   end
 
   # GET /orderitems/1 or /orderitems/1.json
   def show
+    
   end
 
   # GET /orderitems/new
@@ -21,13 +23,15 @@ class OrderitemsController < ApplicationController
 
   # POST /orderitems or /orderitems.json
   def create
-    @cartitems= Cartitem.all 
+    @c = current_user.cart
+    @cartitems= @c.cartitems
      @cartitems.each do|c|
     @orderitem=Orderitem.create(quantity: c.quantity,user_id: current_user.id) 
-   end
+  end
     
     respond_to do |format|
       if @orderitem.save 
+        
         format.html { redirect_to orders_path }
         format.json { render :show, status: :created, location: @orderitem }
       else

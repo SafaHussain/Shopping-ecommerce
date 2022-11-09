@@ -1,4 +1,4 @@
-<%= form_with(model: order, local: true) do |form| %>
+<%= form_with(model: order, local: true) do |f| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -10,8 +10,32 @@
       </ul>
     </div>
   <% end %>
-
   <div class="actions">
-    <%= form.submit %>
+  <div class="field">
+
+  <% f.hidden_field :user_id, :value =>@current_user.id %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+    <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address, autofocus: true %>
+  </div>
+
+    <div class="field">
+    <%= f.label :ph_no %><br />
+    <%= f.text_field :ph_no %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+ <div>
+    <%= f.label :city %><br />
+   <%= f.select :city_id, City.all.pluck(:name, :id), {},{class: 'select'}  %></div>
+  </div>
+
+    <%= f.submit %>
   </div>
 <% end %>
