@@ -23,15 +23,15 @@ class OrderitemsController < ApplicationController
 
   # POST /orderitems or /orderitems.json
   def create
-    @c = current_user.cart
-    @cartitems= @c.cartitems
+    
+    @cartitems= user(current_user).cartitems
      @cartitems.each do|c|
     @orderitem=Orderitem.create(quantity: c.quantity,user_id: current_user.id) 
   end
     
     respond_to do |format|
       if @orderitem.save 
-        
+     
         format.html { redirect_to orders_path }
         format.json { render :show, status: :created, location: @orderitem }
       else
@@ -64,6 +64,9 @@ class OrderitemsController < ApplicationController
     end
   end
 
+  def user(user)
+    user.cart
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_orderitem

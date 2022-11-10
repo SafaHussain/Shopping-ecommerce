@@ -4,8 +4,7 @@ class CartitemsController < ApplicationController
   # GET /cartitems or /cartitems.json
   def index
     if user_signed_in?
-    @c = current_user.cart
-    @cartitems=@c.cartitems
+    @cartitems=user(current_user).cartitems
     end
   end
 
@@ -55,9 +54,11 @@ class CartitemsController < ApplicationController
       format.json { head :no_content }
     end
     
- 
   end
 
+  def user(user)
+    user.cart
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cartitem

@@ -22,18 +22,20 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
   
-    @order = Order.new(order_params)
+    @order = Order.new(name: params[:name], address: params[:address], email: params[:email], ph_no: params[:ph_no], total: user(current_user).cartitems.last.grandtotal.to_i, user_id: current_user.id)
     
     respond_to do |format|
       if @order.save
-        @c=current_user.cart
-        @cartitems=@c.cartitems
-        @orderitem=Orderitem.new
-debugger
+    
+        @cartitems=user(current_user).cartitems
+        @cartitems.each do|c|
+          @orderitem=Orderitem.create(order_id: current_user.order.id) 
+        end
         @cartitems.destroy_all
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
+        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -61,6 +63,11 @@ debugger
       format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  
+  def user(user)
+    user.cart
   end
 
   private

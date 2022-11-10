@@ -5,6 +5,6 @@ class AddNameToOrder < ActiveRecord::Migration[6.0]
     add_column :orders, :ph_no, :string
     add_column :orders, :email, :string
     add_column :orders, :city, :string
-    add_column :orders, :total, :float
+    add_column :orders, :total, :integer
   end
 end

@@ -68,6 +68,6 @@ class CartsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_params
-      params.permit(:cart).require(:user_id)
+      params.permit(:cart).require(:user_id, :total)
     end
 end
