@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show edit update destroy ]
-
+  before_action :get_cartitem
   # GET /orders or /orders.json
   def index
     @order= current_user.order
@@ -21,16 +21,13 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-  
-    @order = Order.new(name: params[:name], address: params[:address], email: params[:email], ph_no: params[:ph_no], total: user(current_user).cartitems.last.grandtotal.to_i, user_id: current_user.id)
-    
+  @order=Order.new(order_params)
     respond_to do |format|
       if @order.save
-    
-        @cartitems=user(current_user).cartitems
         @cartitems.each do|c|
           @orderitem=Orderitem.create(order_id: current_user.order.id) 
         end
+     
         @cartitems.destroy_all
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
@@ -65,10 +62,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  
-  def user(user)
-    user.cart
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -78,6 +71,9 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:user_id, :name, :address, :ph_no, :city, :email)
+      params.require(:order).permit(:user_id, :name, :address, :ph_no, :city, :email, :total)
+    end
+    def get_cartitem
+    @cartitems=current_user.cart.cartitems
     end
 end

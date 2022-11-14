@@ -1,11 +1,9 @@
 class CartitemsController < ApplicationController
   before_action :set_cartitem, only: %i[ show edit update destroy ]
-
+  before_action :get_cartitem
   # GET /cartitems or /cartitems.json
   def index
-    if user_signed_in?
-    @cartitems=user(current_user).cartitems
-    end
+   
   end
 
   # GET /cartitems/1 or /cartitems/1.json
@@ -56,9 +54,7 @@ class CartitemsController < ApplicationController
     
   end
 
-  def user(user)
-    user.cart
-  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cartitem
@@ -69,4 +65,11 @@ class CartitemsController < ApplicationController
     def cartitem_params
       params.require(:cartitem).permit(:quantity, :product_id, :cart_id)
     end
+    def get_cartitem
+      if user_signed_in?
+      @cartitems=current_user.cart.cartitems
+      else
+        flash[:notice]="Kindly SignIn to see cart"
+      end
+        end
 end

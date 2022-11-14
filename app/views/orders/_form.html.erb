@@ -1,4 +1,9 @@
-<%= form_with(model: order, local: true) do |f| %>
+<container style="float: left;
+  width: 50%;
+  border: 1px solid;
+  padding: 10px;
+  height: 300px;">
+  <%= form_with(model: order, local: true) do |f| %>
 
   <% if order.errors.any? %>
     <div id="error_explanation">
@@ -12,8 +17,8 @@
     </div>
   <% end %>
   <div class="actions">
- 
-  <%= f.hidden_field :user_id, :value=> current_user.id %>
+
+  <%= f.hidden_field :user_id, :value=> current_user.id%>
 
  <div class="field">
     <%= f.label :name %><br />
@@ -34,12 +39,9 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <%
-=begin%>
- <%= f.hidden_field :total, :value=>  %>  
-<%
-=end%>
+ 
 
+ <%= f.hidden_field :total, :value=>current_user.cart.cartitems.last.grandtotal %>   
 
  <%
 =begin%>
@@ -53,3 +55,13 @@
     <%= f.submit %>
   </div>
 <% end %>
+</container> 
+<container style="float: right;
+  width: 50%;
+  border: 1px solid;
+  padding: 10px;
+  height: 300px;">
+
+
+  <%= render 'cartitems/index'%>
+</container>
