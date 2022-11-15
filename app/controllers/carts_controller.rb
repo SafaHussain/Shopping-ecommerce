@@ -4,7 +4,6 @@ class CartsController < ApplicationController
   # GET /carts or /carts.json
   def index
     @cart = current_user.cart
-    @cartitems=cart.cartitems
     
   end 
 
@@ -26,6 +25,7 @@ class CartsController < ApplicationController
   # POST /carts or /carts.json
   def create
     @cart = Cart.new(cart_params)
+    
     respond_to do |format|
       if @cart.save
         format.html { redirect_to cart_url(@cart), notice: "Cart was successfully created." }
@@ -68,6 +68,6 @@ class CartsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_params
-      params.permit(:cart).require(:user_id, :total)
+      params.permit(:cart).require(:user_id, :grandtotal)
     end
 end

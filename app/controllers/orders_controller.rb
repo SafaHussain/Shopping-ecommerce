@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
   before_action :get_cartitem
   # GET /orders or /orders.json
   def index
-    @order= current_user.order
+    @orders= current_user.orders
+
   end
 
   # GET /orders/1 or /orders/1.json
@@ -22,17 +23,19 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
   @order=Order.new(order_params)
+
     respond_to do |format|
       if @order.save
+    
         @cartitems.each do|c|
-          @orderitem=Orderitem.create(order_id: current_user.order.id) 
+          @orderitem=Orderitem.create(order_id: current_user.orders.ids) 
+        
         end
-     
         @cartitems.destroy_all
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
-        debugger
+       
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -73,7 +76,15 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:user_id, :name, :address, :ph_no, :city, :email, :total)
     end
+
     def get_cartitem
     @cartitems=current_user.cart.cartitems
+    end
+
+    def grandtotal
+        user.cart.cartitems.sum(:subtotal)
+  
+      grand_total=cartitem.gtotal(current_user)
+      cartitem.update(grandtotal: grand_total) 
     end
 end

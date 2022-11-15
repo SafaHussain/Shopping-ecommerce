@@ -2,5 +2,36 @@
 
 <%= render 'form', cartitem: @cartitem %>
 
+    <%= form_for @cartitem, url: cartitems_path, method: :post, remote: true,html: {id: "form"} do |form| %>
+  <% if @cartitem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cartitem.errors.count, "error") %> prohibited this cartitem from being saved:</h2>
+
+      <ul>
+        <% @cartitem.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+
+  <%= form.label :quantity %>
+  <%= form.text_field :quantity %>
+       <%= form.hidden_field :product_id, :value => @product.id %>
+      <% if user_signed_in? %>
+         <%= form.hidden_field :cart_id, :value =>@cart.id %>
+         <%end %>
+       <div class="btn btn-light" id="cartitem">
+    <%= form.submit "Add To Cart" %>
+    </div>
+    <% end %>
+  
+
+  
+
+
+
 <%= link_to 'Show', @cartitem %> |
 <%= link_to 'Back', cartitems_path %>

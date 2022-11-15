@@ -2,7 +2,7 @@
   width: 50%;
   border: 1px solid;
   padding: 10px;
-  height: 300px;">
+  height: auto;">
   <%= form_with(model: order, local: true) do |f| %>
 
   <% if order.errors.any? %>
@@ -41,7 +41,7 @@
 
  
 
- <%= f.hidden_field :total, :value=>current_user.cart.cartitems.last.grandtotal %>   
+ <%= f.hidden_field :total, :value=>current_user.cart.cartitems.sum(:subtotal) %>   
 
  <%
 =begin%>
@@ -60,7 +60,7 @@
   width: 50%;
   border: 1px solid;
   padding: 10px;
-  height: 300px;">
+  height: auto;">
 
 
   <%= render 'cartitems/index'%>

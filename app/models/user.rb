@@ -10,6 +10,6 @@ class User < ApplicationRecord
          friendly_id :name, use: :slugged
 
  has_one :cart 
- has_one :order
+ has_many :orders
 
 end

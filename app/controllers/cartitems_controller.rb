@@ -1,30 +1,29 @@
 class CartitemsController < ApplicationController
   before_action :set_cartitem, only: %i[ show edit update destroy ]
   before_action :get_cartitem
-  # GET /cartitems or /cartitems.json
+
+  
   def index
-   
   end
 
-  # GET /cartitems/1 or /cartitems/1.json
+ 
   def show
     @cartitem=Cartitem.find(params[:id])
   end
 
-  # GET /cartitems/new
-  def new
+    def new
     @cartitem = Cartitem.new
   end
 
-  # GET /cartitems/1/edit
+ 
   def edit
   end
 
-  # POST /cartitems or /cartitems.json
-  def create
-    @cartitem = Cartitem.new(cartitem_params)
 
-      if @cartitem.save
+  def create
+    @cartitem = Cartitem.new(cartitem_params)   
+     if @cartitem.save
+   
         redirect_to cartitem_path(@cartitem)
         
       end
@@ -65,6 +64,7 @@ class CartitemsController < ApplicationController
     def cartitem_params
       params.require(:cartitem).permit(:quantity, :product_id, :cart_id)
     end
+
     def get_cartitem
       if user_signed_in?
       @cartitems=current_user.cart.cartitems
